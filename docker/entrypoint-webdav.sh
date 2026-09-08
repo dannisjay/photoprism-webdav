@@ -12,6 +12,12 @@ set -euo pipefail
 
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/photoprism/bin"
 
+# 调试模式：WEBDAV_SKIP_MOUNT=true 时跳过挂载直接启动（originals 为空，仅用于先看界面）
+if [[ "${WEBDAV_SKIP_MOUNT:-false}" == "true" ]]; then
+  echo "[webdav] WEBDAV_SKIP_MOUNT=true：跳过挂载直接启动（调试模式，originals 为空）"
+  exec "$@"
+fi
+
 : "${WEBDAV_URL:?请在 .env 设置 WEBDAV_URL（Alist WebDAV 地址，形如 http://服务器IP:5244/dav）}"
 : "${WEBDAV_USER:?请在 .env 设置 WEBDAV_USER（Alist 登录账号）}"
 : "${WEBDAV_PASS:?请在 .env 设置 WEBDAV_PASS（Alist 登录密码）}"
