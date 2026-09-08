@@ -48,6 +48,7 @@ services:
       # ---- PhotoPrism ----
       PHOTOPRISM_SITE_URL: "${PHOTOPRISM_SITE_URL:-http://localhost:2342/}"
       PHOTOPRISM_ADMIN_PASSWORD: "${PHOTOPRISM_ADMIN_PASSWORD}"
+      PHOTOPRISM_ADMIN_USER: "${PHOTOPRISM_ADMIN_USER:-admin}"
       PHOTOPRISM_READONLY: "true"
       PHOTOPRISM_ORIGINALS_PATH: "/photoprism/originals"
       PHOTOPRISM_STORAGE_PATH: "/photoprism/storage"
@@ -82,7 +83,8 @@ services:
 ```bash
 cat > .env <<'EOF'
 # ============ PhotoPrism 登录 ============
-# 用户名固定 admin；密码至少 8 位（admin 太短会被拒绝启动）
+# 初始管理员用户名（默认 admin，可改成自己的）；密码至少 8 位
+PHOTOPRISM_ADMIN_USER=admin
 PHOTOPRISM_ADMIN_PASSWORD=admin123456
 PHOTOPRISM_SITE_URL=http://你的服务器IP:2342/
 
@@ -120,7 +122,7 @@ docker compose logs -f photoprism
 photoprism start ... server: listening on 0.0.0.0:2342
 ```
 
-浏览器打开 http://服务器IP:2342/ ，用户名 admin，密码填你 .env 里设置的。
+浏览器打开 http://服务器IP:2342/ ，用户名用你 .env 里 PHOTOPRISM_ADMIN_USER 设的（默认 admin），密码用 PHOTOPRISM_ADMIN_PASSWORD 设的。
 
 ## 5. 首次全量入库（扫网盘、生成缩略图）
 

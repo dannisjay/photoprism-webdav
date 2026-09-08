@@ -1,4 +1,4 @@
-# PhotoPrism Local v1.0（改版）
+﻿# PhotoPrism Local v1.0（改版）
 # 用法（在工程根目录）:  docker compose up -d --build
 # 所有配置集中在 .env（WEBDAV_* 即你的 Alist WebDAV 信息）
 name: photoprism115
@@ -35,6 +35,7 @@ services:
       # ---- PhotoPrism ----
       PHOTOPRISM_SITE_URL: "${PHOTOPRISM_SITE_URL:-http://localhost:2342/}"
       PHOTOPRISM_ADMIN_PASSWORD: "${PHOTOPRISM_ADMIN_PASSWORD}"
+      PHOTOPRISM_ADMIN_USER: "${PHOTOPRISM_ADMIN_USER:-admin}"
       PHOTOPRISM_READONLY: "true"
       PHOTOPRISM_ORIGINALS_PATH: "/photoprism/originals"
       PHOTOPRISM_STORAGE_PATH: "/photoprism/storage"

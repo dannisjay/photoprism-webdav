@@ -1,4 +1,4 @@
-# /opt/photoprism 部署：直接用 GitHub 预构建镜像（amd64+arm64）
+﻿# /opt/photoprism 部署：直接用 GitHub 预构建镜像（amd64+arm64）
 # 用法见 install.sh；配置在 /opt/photoprism/.env
 name: photoprism
 
@@ -26,6 +26,7 @@ services:
       # ---- PhotoPrism ----
       PHOTOPRISM_SITE_URL: "${PHOTOPRISM_SITE_URL:-http://localhost:2342/}"
       PHOTOPRISM_ADMIN_PASSWORD: "${PHOTOPRISM_ADMIN_PASSWORD}"
+      PHOTOPRISM_ADMIN_USER: "${PHOTOPRISM_ADMIN_USER:-admin}"
       PHOTOPRISM_READONLY: "true"
       PHOTOPRISM_ORIGINALS_PATH: "/photoprism/originals"
       PHOTOPRISM_STORAGE_PATH: "/photoprism/storage"
