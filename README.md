@@ -69,3 +69,7 @@ docker compose exec photoprism photoprism index   # 手动入库（或等约 5 �
   ```
   然后 `docker compose pull && docker compose up -d`。
 - 注意：`.env` 与 `./storage`、`./database` 均已被 .gitignore 排除，不会进仓库。
+
+## 服务器快速试跑
+- 现成部署包在 deploy/photoprism/（直接用 ghcr 镜像）：拷到服务器后 sudo bash install.sh，
+  详情见 deploy/photoprism/README.md。

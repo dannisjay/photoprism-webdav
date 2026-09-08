@@ -1,20 +1,12 @@
-# PhotoPrism Local v1.0（改版）
-# 用法（在工程根目录）:  docker compose up -d --build
-# 所有配置集中在 .env（WEBDAV_* 即你的 Alist WebDAV 信息）
-name: photoprism115
+# /opt/photoprism 部署：直接用 GitHub 预构建镜像（amd64+arm64）
+# 用法见 install.sh；配置在 /opt/photoprism/.env
+name: photoprism
 
 services:
   photoprism:
-    build:
-      context: ./docker
-    image: photoprism-115:1.0
+    image: ghcr.io/dannisjay/photoprism-webdav:latest
     restart: unless-stopped
-    # FUSE 挂载需要 /dev/fuse + SYS_ADMIN；自用服务器用 privileged 最简单。
     privileged: true
-    # 更小权限替代（内核需支持，任选其一）：
-    # devices: ["/dev/fuse"]
-    # cap_add: ["SYS_ADMIN"]
-    # security_opt: ["apparmor:unconfined"]
     ports:
       - "2342:2342"
     environment:
@@ -22,10 +14,9 @@ services:
       WEBDAV_URL: "${WEBDAV_URL}"
       WEBDAV_USER: "${WEBDAV_USER}"
       WEBDAV_PASS: "${WEBDAV_PASS}"
-      # 多目录： 远程路径:挂载名;远程路径:挂载名 （兼容旧变量 WEBDAV_PATH）
       WEBDAV_MOUNTS: "${WEBDAV_MOUNTS:-}"
       WEBDAV_SKIP_MOUNT: "${WEBDAV_SKIP_MOUNT:-false}"
-      # ---- rclone 容错/缓存（可覆盖）----
+      # ---- rclone 容错/缓存 ----
       RCLONE_VFS_CACHE: "${RCLONE_VFS_CACHE:-true}"
       RCLONE_VFS_CACHE_MAX_SIZE: "${RCLONE_VFS_CACHE_MAX_SIZE:-50G}"
       RCLONE_CONTIMEOUT: "${RCLONE_CONTIMEOUT:-10s}"
@@ -42,7 +33,6 @@ services:
       PHOTOPRISM_DATABASE_DRIVER: "mysql"
       PHOTOPRISM_DATABASE_DSN: "photoprism:${MARIADB_PASSWORD}@tcp(mariadb:3306)/photoprism?charset=utf8mb4,utf8&parseTime=true&loc=Local"
     volumes:
-      # 本地盘：缩略图/原图缓存(rclone-vfs)/侧车/索引缓存，必须服务器本地磁盘
       - "./storage:/photoprism/storage"
     depends_on:
       mariadb:
