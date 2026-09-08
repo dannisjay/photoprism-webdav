@@ -1,0 +1,7 @@
+# secrets & runtime data
+.env
+storage/
+database/
+import/
+*.log
+.DS_Store
