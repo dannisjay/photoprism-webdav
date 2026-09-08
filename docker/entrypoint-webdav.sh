@@ -97,7 +97,7 @@ mount_one() {
     --retries "${RCLONE_RETRIES}" \
     --low-level-retries "${RCLONE_LOW_LEVEL_RETRIES}" \
     --vfs-cache-mode "${VFS_MODE}" \
-    --vfs-cache-dir "${VFS_CACHE_DIR}" \
+    --cache-dir "${VFS_CACHE_DIR}" \
     --vfs-cache-max-size "${RCLONE_VFS_CACHE_MAX_SIZE}" \
     --daemon \
     --log-file "${LOG_FILE}" \
